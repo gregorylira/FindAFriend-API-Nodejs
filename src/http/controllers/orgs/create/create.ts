@@ -4,7 +4,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
-  const createOrgSchema = z.object({
+  const createOrgBodySchema = z.object({
     name: z.string(),
     email: z.string(),
     password: z.string(),
@@ -12,7 +12,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     city: z.string(),
   });
 
-  const { name, email, password, phone, city } = createOrgSchema.parse(
+  const { name, email, password, phone, city } = createOrgBodySchema.parse(
     request.body
   );
 

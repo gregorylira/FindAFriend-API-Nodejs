@@ -16,13 +16,17 @@ interface RegisterPetUseCaseResponse {
 export class RegisterPetUseCase {
   constructor(private petsRepository: PetsRepository) {}
 
-  async execute(data: RegisterPetUseCaseRequest) {
-    return this.petsRepository.create({
+  async execute(
+    data: RegisterPetUseCaseRequest
+  ): Promise<RegisterPetUseCaseResponse> {
+    const pet = await this.petsRepository.create({
       name: data.name,
       characteristics: data.characteristics,
       city: data.city,
       race: data.race,
       org_id: data.org_id,
     });
+
+    return { pet };
   }
 }
