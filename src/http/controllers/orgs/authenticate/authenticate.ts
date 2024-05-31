@@ -1,5 +1,5 @@
-import { InvalidCredentialsError } from "@/domain/error/InvalidCredentialsError";
 import { makeAuthenticateOrgUseCase } from "@/domain/factory/make-authenticate-org-use-case";
+import { InvalidCredentialsError } from "@/domain/error/invalid-credentials-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 

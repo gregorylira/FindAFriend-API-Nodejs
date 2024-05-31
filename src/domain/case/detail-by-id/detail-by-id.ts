@@ -1,3 +1,4 @@
+import { PetNotFoundError } from "@/domain/error/pet-not-found";
 import { PetsRepository } from "@/repositories/pets-repository";
 import { Pet } from "@prisma/client";
 
@@ -6,7 +7,7 @@ interface DetailByIdUseCaseRequest {
 }
 
 interface DetailByIdUseCaseResponse {
-  pets: Pet[];
+  pet: Pet;
 }
 
 export class DetailByIdUseCase {
@@ -15,8 +16,12 @@ export class DetailByIdUseCase {
   async execute({
     petId,
   }: DetailByIdUseCaseRequest): Promise<DetailByIdUseCaseResponse> {
-    const pets = await this.petsRepository.detailById(petId);
+    const pet = await this.petsRepository.detailById(petId);
 
-    return { pets };
+    if (!pet) {
+      throw new PetNotFoundError();
+    }
+
+    return { pet };
   }
 }

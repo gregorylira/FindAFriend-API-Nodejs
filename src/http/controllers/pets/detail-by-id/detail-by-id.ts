@@ -16,8 +16,13 @@ export async function details(request: FastifyRequest, reply: FastifyReply) {
     const pets = await PetsDetailsByIdUseCase.execute({
       petId: id,
     });
+
+    if (!pets) {
+      return reply.status(404).send({ message: "Pet not found" });
+    }
+
     return reply.status(200).send({ pets });
   } catch (error) {
-    return reply.status(409).send({ message: error });
+    return reply.status(404).send({ message: error });
   }
 }
