@@ -1,3 +1,4 @@
+import { InvalidCredentialsError } from "@/domain/error/InvalidCredentialsError";
 import { makeAuthenticateOrgUseCase } from "@/domain/factory/make-authenticate-org-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
@@ -30,5 +31,9 @@ export async function authenticate(
     );
 
     return reply.status(200).send({ token });
-  } catch (err) {}
+  } catch (err) {
+    if (err instanceof InvalidCredentialsError) {
+      return reply.status(401).send({ message: err.message });
+    }
+  }
 }

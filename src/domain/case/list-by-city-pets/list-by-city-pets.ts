@@ -1,18 +1,18 @@
 import { PetsRepository } from "@/repositories/pets-repository";
 import { Pet } from "@prisma/client";
 
-interface ListPetsByEmailUseCaseRequest {
+interface ListPetsByCityCaseRequest {
   city: string;
 }
 
-interface ListPetsByEmailUseCaseResponse {
+interface ListPetsByCityCaseResponse {
   pets: Pet[];
 }
 
-export class ListPetsByEmailUseCase {
+export class ListPetsByCityCase {
   constructor(private petsRepository: PetsRepository) {}
 
-  async execute(city: string): Promise<ListPetsByEmailUseCaseResponse> {
+  async execute(city: string): Promise<ListPetsByCityCaseResponse> {
     const pets = await this.petsRepository.listManyByCity(city);
 
     return { pets };

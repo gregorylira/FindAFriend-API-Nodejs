@@ -6,7 +6,9 @@ export class PrismaPetsRepository implements PetsRepository {
   async listManyByCity(city: string) {
     const pets = await prisma.pet.findMany({
       where: {
-        city,
+        city: {
+          contains: city,
+        },
       },
     });
 

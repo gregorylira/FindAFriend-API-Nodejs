@@ -19,6 +19,7 @@ export class AuthenticateUseCase {
     data: AuthenticateUseCaseRequest
   ): Promise<AuthenticateUseCaseResponse> {
     const org = await this.OrgsRepository.findOrgByEmail(data.email);
+    console.log(org);
 
     if (!org) {
       throw new InvalidCredentialsError();
