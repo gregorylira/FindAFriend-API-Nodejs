@@ -1,5 +1,3 @@
-import { OrgAlreadyExistsError } from "@/domain/error/org-already-exists";
-import { makeCreateOrgUseCase } from "@/domain/factory/make-create-org-use-case";
 import { makeListPetByCityUseCase } from "@/domain/factory/make-list-by-city-pets";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
