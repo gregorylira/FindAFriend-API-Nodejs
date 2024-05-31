@@ -1,31 +1,21 @@
 import fastify from "fastify";
 import { PrismaClient } from "@prisma/client";
+import { ZodError } from "zod";
+import { env } from "./env";
 
 const app = fastify();
 
-app.get("/", async (request, reply) => {
-  const prisma = new PrismaClient();
+app.setErrorHandler((error, request, reply) => {
+  if (error instanceof ZodError) {
+    reply
+      .status(400)
+      .send({ message: "Validation error", errors: error.format() });
+  }
+  if (env.NODE_ENV !== "production") {
+    console.error(error);
+  }
 
-  const org = await prisma.org.create({
-    data: {
-      id: "org_1",
-      phone: "912392193",
-      name: "Org 1",
-      city: "New York",
-      address: "123 Main St",
-    },
-  });
-
-  const pet = await prisma.pet.create({
-    data: {
-      name: "Fluffy",
-      race: "yellow",
-      city: "New York",
-      characteristics: "cute",
-      org_id: "org_1",
-    },
-  });
-  return reply.send(pet);
+  reply.status(500).send({ message: "Internal server error" });
 });
 
 export { app };
