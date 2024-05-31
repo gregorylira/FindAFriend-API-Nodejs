@@ -29,12 +29,14 @@ model Pet {
 }
 
 model ORG {
-  id      String @id @default(uuid())
-  name    String
-  address String
-  phone   String
-  city    String
-  Pet     Pet[]
+  id       String @id @default(uuid())
+  name     String
+  email    String
+  password String
+  address  String
+  phone    String
+  city     String
+  Pet      Pet[]
 
   @@map("orgs")
 }
